@@ -3,9 +3,12 @@
 import SwiftUI
 import PlaygroundSupport
 
+var skillStore = SkillStore(skills: MySkills.skills())
+var roleStore = RoleStore(roles: MyRoles.roles(), skillStore: skillStore)
+
 struct ModelsView: View {
-    @ObservedObject var roleStore = RoleStore(roles: MyRoles.roles())
-    @ObservedObject var skillStore = SkillStore(skills: MySkills.skills())
+    @ObservedObject var skillStore: SkillStore
+    @ObservedObject var roleStore: RoleStore
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 5) {
@@ -20,6 +23,6 @@ struct ModelsView: View {
     }
 }
 
-PlaygroundPage.current.setLiveView(ModelsView())
+PlaygroundPage.current.setLiveView(ModelsView(skillStore: skillStore, roleStore: roleStore))
 
 //: [Next](@next)
